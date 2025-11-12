@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './App.css';
 
 export default function App() {
   
@@ -42,10 +43,10 @@ export default function App() {
       <form onSubmit={handleSearch} className="flex gap-2 mb-4">
         <input
           type="text"
-          placeholder="Enter a word"
+          placeholder="Search for a word..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search term"
+          aria-label="Search for a word..."
           className="flex-1 p-2 border rounded"
         />
         <button type="submit" className="px-4 py-2 border rounded bg-gray-100">
@@ -55,16 +56,17 @@ export default function App() {
 
       
       <div aria-live="polite">
+        <h3 className="font-bold text-lg">Definition:</h3>
         {definition && (
           <div>
-            <h3 className="font-bold text-3xl">Definition:</h3>
+            
             <p>{definition}</p>
           </div>
         )}
 
         {!definition && notFound && (
           <div>
-            <h3 className="font-bold text-3xl">Definition:</h3>
+            
           <p>Word not found in the dictionary.</p>
           </div>
         )}
