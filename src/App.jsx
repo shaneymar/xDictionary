@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  
+  const [dictionary] = useState([
+    { word: "React", meaning: "A JavaScript library for building user interfaces." },
+    { word: "Component", meaning: "A reusable building block in React." },
+    { word: "State", meaning: "An object that stores data for a component." },
+  ]);
+
+  const [query, setQuery] = useState("");
+  const [definition, setDefinition] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+
+  const handleSearch = (e) => {
+    if (e) e.preventDefault();
+    const trimmed = query.trim();
+    if (trimmed === "") {
+      setDefinition(null);
+      setNotFound(false);
+      return;
+    }
+
+    const found = dictionary.find(
+      (entry) => entry.word.toLowerCase() === trimmed.toLowerCase()
+    );
+
+    if (found) {
+      setDefinition(found.meaning);
+      setNotFound(false);
+    } else {
+      setDefinition(null);
+      setNotFound(true);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="max-w-xl mx-auto mt-12 p-6 border rounded shadow-sm">
+      <h1 className="text-2xl font-semibold mb-4">XDictionary</h1>
 
-export default App
+      
+      <form onSubmit={handleSearch} className="flex gap-2 mb-4">
+        <input
+          type="text"
+          placeholder="Enter a word"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          aria-label="Search term"
+          className="flex-1 p-2 border rounded"
+        />
+        <button type="submit" className="px-4 py-2 border rounded bg-gray-100">
+          Search
+        </button>
+      </form>
+
+      
+      <div aria-live="polite">
+        {definition && (
+          <div>
+            <h3>Definition:</h3>
+            <p>{definition}</p>
+          </div>
+        )}
+
+        {!definition && notFound && (
+          <div>
+            <h3>Definition:</h3>
+          <p>Word not found in the dictionary.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
