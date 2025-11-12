@@ -18,8 +18,12 @@ export default function XDictionary() {
     const trimmed = query.trim();
 
     // If the input is empty, do nothing — preserve previous search results (important for No Search Term test)
-    if (trimmed === "") return;
-
+    if (trimmed === "") {
+      setDefinition(null);
+      setNotFound(true);
+      return;
+    }
+    
     const found = dictionary.find(
       (entry) => entry.word.toLowerCase() === trimmed.toLowerCase()
     );
