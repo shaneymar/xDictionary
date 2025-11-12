@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <div className="max-w-xl mx-auto mt-12 p-6 border rounded shadow-sm">
-      <h1 className="text-2xl font-semibold mb-4">XDictionary</h1>
+      <h1 className="text-2xl font-semibold mb-4">Dictionary App</h1>
 
       
       <form onSubmit={handleSearch} className="flex gap-2 mb-4">
@@ -57,14 +57,14 @@ export default function App() {
       <div aria-live="polite">
         {definition && (
           <div>
-            <h3>Definition:</h3>
+            <h3 className="font-bold text-3xl">Definition:</h3>
             <p>{definition}</p>
           </div>
         )}
 
         {!definition && notFound && (
           <div>
-            <h3>Definition:</h3>
+            <h3 className="font-bold text-3xl">Definition:</h3>
           <p>Word not found in the dictionary.</p>
           </div>
         )}
